@@ -25,19 +25,21 @@ class Roll {
         const glazingName = glazingSelected.options[glazingSelected.selectedIndex].text;
 
         this.glazing = glazingName;
-        this.getPrice();
-        console.log(this.glazing);
+        this.updatePrice();
     }
 
     sizeChange = (event) => {
         this.packSize = event.target.value;
-        console.log(this.packSize);
-        this.getPrice();
+        this.updatePrice();
     }
 
-    getPrice = () => {
+    updatePrice = () => {
         const price = this.packSize * (this.glazingToPrice[this.glazing] + this.basePrice);
         this.price = price.toFixed(2);
+    }
+
+    addToList = (list) => {
+        list.push(this);
     }
 
 }
@@ -73,11 +75,21 @@ class Homepage extends Component {
                      3.99)
             ],
 
-            cart: []
+            cart: [],
+            totalItem: 0,
+            totalPrice: 0
         }
     }
 
-    setGlazingState = (index,event) => {
+    calcTotalPrice = (itemList) => {
+        let price = 0;
+        for (const item of itemList){
+            price += Number(item.price);
+        }
+        return price.toFixed(2);
+    }
+
+    handleGlazingChange = (index,event) => {
         let newItemData = this.state.itemData;
         console.log(index)
         console.log(newItemData[index]);
@@ -86,14 +98,26 @@ class Homepage extends Component {
         this.setState({ itemData: [ ...newItemData ]})
     }
 
-    setSizeState = (index,event) => {
+    handleSizeChange = (index,event) => {
         let newItemData = this.state.itemData;
-        console.log(index)
-        console.log(newItemData[index]);
         newItemData[index].sizeChange(event);
 
         this.setState({ itemData: [ ...newItemData ]})
     }
+
+    
+
+    handleAddToCart = (index) => {
+        let newCart = this.state.cart;
+        this.state.itemData[index].addToList(newCart);
+        this.setState(prevState => ({
+            ...prevState,
+            cart: newCart,
+            totalItem: newCart.length,
+            totalPrice: this.calcTotalPrice(newCart)
+        }))
+    }
+    
 
     render(){
         return (
@@ -106,6 +130,8 @@ class Homepage extends Component {
                     
                     <div id="header-content">
                         <Navbar />
+                        <p className="cart-content">{this.state.totalItem} items</p>
+                        <p className="cart-content">Total: ${this.state.totalPrice}</p>
                         <hr className="divider"/>
                         <h1>Our hand-made cinnamon rolls</h1>
                     </div>
@@ -118,48 +144,54 @@ class Homepage extends Component {
                         bunName = {this.state.itemData[0].bunName}
                         altText = {this.state.itemData[0].altText}
                         price = {this.state.itemData[0].price}
-                        onGlazingChange = {this.setGlazingState}
-                        onSizeChange = {this.setSizeState}/>
+                        onGlazingChange = {this.handleGlazingChange}
+                        onSizeChange = {this.handleSizeChange}
+                        onAddCart = {this.handleAddToCart}/>
                     <Item
                         bunIndex = {1}
                         imageURL ={this.state.itemData[1].imageURL}
                         bunName = {this.state.itemData[1].bunName}
                         altText = {this.state.itemData[1].altText}
                         price = {this.state.itemData[1].price}
-                        onGlazingChange = {this.setGlazingState}
-                        onSizeChange = {this.setSizeState}/>
+                        onGlazingChange = {this.handleGlazingChange}
+                        onSizeChange = {this.handleSizeChange}
+                        onAddCart = {this.handleAddToCart}/>
                     <Item
                         bunIndex = {2}
                         imageURL ={this.state.itemData[2].imageURL}
                         bunName = {this.state.itemData[2].bunName}
                         altText = {this.state.itemData[2].altText}
                         price = {this.state.itemData[2].price}
-                        onGlazingChange = {this.setGlazingState}
-                        onSizeChange = {this.setSizeState}/>
+                        onGlazingChange = {this.handleGlazingChange}
+                        onSizeChange = {this.handleSizeChange}
+                        onAddCart = {this.handleAddToCart}/>
                     <Item
                         bunIndex = {3}
                         imageURL ={this.state.itemData[3].imageURL}
                         bunName = {this.state.itemData[3].bunName}
                         altText = {this.state.itemData[3].altText}
                         price = {this.state.itemData[3].price}
-                        onGlazingChange = {this.setGlazingState}
-                        onSizeChange = {this.setSizeState}/>
+                        onGlazingChange = {this.handleGlazingChange}
+                        onSizeChange = {this.handleSizeChange}
+                        onAddCart = {this.handleAddToCart}/>
                     <Item
                         bunIndex = {4}
                         imageURL ={this.state.itemData[4].imageURL}
                         bunName = {this.state.itemData[4].bunName}
                         altText = {this.state.itemData[4].altText}
                         price = {this.state.itemData[4].price}
-                        onGlazingChange = {this.setGlazingState}
-                        onSizeChange = {this.setSizeState}/>
+                        onGlazingChange = {this.handleGlazingChange}
+                        onSizeChange = {this.handleSizeChange}
+                        onAddCart = {this.handleAddToCart}/>
                     <Item
                         bunIndex = {5}
                         imageURL ={this.state.itemData[5].imageURL}
                         bunName = {this.state.itemData[5].bunName}
                         altText = {this.state.itemData[5].altText}
                         price = {this.state.itemData[5].price}
-                        onGlazingChange = {this.setGlazingState}
-                        onSizeChange = {this.setSizeState}/>
+                        onGlazingChange = {this.handleGlazingChange}
+                        onSizeChange = {this.handleSizeChange}
+                        onAddCart = {this.handleAddToCart}/>
                 </div>
             </div>
         );

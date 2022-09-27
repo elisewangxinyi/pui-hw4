@@ -38,7 +38,10 @@ class Item extends Component {
                 <div className="add-to-cart">
                     
                     <h2 className="item-price">{`$${this.props.price}`}</h2>
-                    <button className="btn-addCart">Add to Cart</button>
+                    <button className="btn-addCart" 
+                            onClick={() => this.props.onAddCart(this.props.bunIndex)}>
+                            Add to Cart
+                    </button>
                 </div>
             </div>
         );
