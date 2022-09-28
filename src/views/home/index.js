@@ -50,27 +50,27 @@ class Homepage extends Component {
         super(props);
         this.state = {
             itemData: [
-            new Roll("/assets/original-cinnamon-roll.jpg",
+            new Roll(process.env.PUBLIC_URL + "/assets/original-cinnamon-roll.jpg",
                      "Original cinnamon roll", 
                      "original cinnamon roll on a plate",
                      2.49),
-            new Roll("/assets/apple-cinnamon-roll.jpg",
+            new Roll(process.env.PUBLIC_URL + "/assets/apple-cinnamon-roll.jpg",
                      "Apple cinnamon roll",
                      "apple cinnamon roll with a fork",
                      3.49),
-            new Roll("/assets/raisin-cinnamon-roll.jpg",
+            new Roll(process.env.PUBLIC_URL + "/assets/raisin-cinnamon-roll.jpg",
                      "Raisin cinnamon roll",
                      "raisin cinnamon roll",
                      2.99),
-            new Roll("/assets/walnut-cinnamon-roll.jpg",
+            new Roll(process.env.PUBLIC_URL + "/assets/walnut-cinnamon-roll.jpg",
                      "Walnut cinnamon roll",
                      "a walnut cinnamon roll with a fork",
                      3.49),
-            new Roll("/assets/double-chocolate-cinnamon-roll.jpg",
+            new Roll(process.env.PUBLIC_URL + "/assets/double-chocolate-cinnamon-roll.jpg",
                      "Double-chocolate cinnamon roll",
                      "a double chocolate cinnamon roll in a wrapper",
                      3.99),
-            new Roll("/assets/strawberry-cinnamon-roll.jpg",
+            new Roll( process.env.PUBLIC_URL + "/assets/strawberry-cinnamon-roll.jpg",
                      "Strawberry cinnamon roll",
                      "multiple strawberry cinnamon rolls",
                      3.99)
@@ -137,7 +137,7 @@ class Homepage extends Component {
             <div className="Homepage">
                 <header>
                     <div id='header-logo'>
-                        <img src={"/assets/logo-01.svg"} 
+                        <img src={process.env.PUBLIC_URL + "/assets/logo-01.svg"} 
                              alt="Logo of Bun Bun Bake Shop"/>
                     </div>
                     
