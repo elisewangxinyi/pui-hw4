@@ -2,6 +2,7 @@
 #cartPopup {
     display: block;
     width: 200px;
+    top: 6%;
     right: 40px;
     border-style: solid;
     border-color: gray;
@@ -11,6 +12,8 @@
     position: absolute;
     text-align: left;
     font-size: 16px;
+
+    animation: fadeIn 0.5s; 
 }
 
 .popup-summary {
@@ -21,4 +24,11 @@
 #popup-name {
     margin-top: 20px;
     font-weight: 700;
+}
+
+/* fade in animation for the pop up */
+/* Source: https://www.w3schools.com/howto/howto_js_popup.asp */
+@keyframes fadeIn {
+    from {opacity: 0;}
+    to {opacity:1;}
 }

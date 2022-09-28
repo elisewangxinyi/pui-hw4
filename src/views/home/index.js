@@ -93,8 +93,6 @@ class Homepage extends Component {
 
     handleGlazingChange = (index,event) => {
         let newItemData = this.state.itemData;
-        console.log(index)
-        console.log(newItemData[index]);
         newItemData[index].glazingChange(event);
 
         this.setState({ itemData: [ ...newItemData ]})
@@ -106,7 +104,6 @@ class Homepage extends Component {
 
         this.setState({ itemData: [ ...newItemData ]})
     }
-
 
     handleAddToCart = (index) => {
         this.handlePopUp();
@@ -121,18 +118,19 @@ class Homepage extends Component {
     }
 
     handlePopUp = () => {
-        this.setState ({
-            popUpSeen: true,
-        })
+        this.setState (prevState => ({
+            ...prevState,
+            popUpSeen: true
+        }))
+        setTimeout(this.closePopup, 3000);
     }
 
-    // useEffect(() => {
-    //     const timer = setTimeout(() => {
-    //     setShowPopUp(false);
-    //   }, 5000);
-    //  return () => clearTimeout(timer);
-    //  }, [showPopUp]);
-    
+    closePopup = () => {
+        this.setState (prevState => ({
+            ...prevState,
+            popUpSeen: false
+        }))
+    }
 
     render(){
         return (
@@ -144,12 +142,12 @@ class Homepage extends Component {
                     </div>
                     
                     <div id="header-content">
-                        <Navbar />
+                        <Navbar 
+                        totalItem = {this.state.totalItem}
+                        totalPrice={this.state.totalPrice}
+                        />
                         {/*EXAMPLE from: https://medium.com/@daniela.sandoval/creating-a-popup-window-using-js-and-react-4c4bd125da57*/ }
-                        {this.state.popUpSeen ? <Popup 
-                        addedItem={this.state.cart.at(-1)}/> : null}
-                        <p className="cart-content">{this.state.totalItem} items</p>
-                        <p className="cart-content">Total: ${this.state.totalPrice}</p>
+                        {this.state.popUpSeen ? <Popup addedItem={this.state.cart.at(-1)}/> : null}
                         <hr className="divider"/>
                         <h1>Our hand-made cinnamon rolls</h1>
                     </div>
