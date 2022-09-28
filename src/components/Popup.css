@@ -1,0 +1,24 @@
+/*************Pop up**********/
+#cartPopup {
+    display: block;
+    width: 200px;
+    right: 40px;
+    border-style: solid;
+    border-color: gray;
+    border-width: 2px;
+    background-color: white;
+    padding: 8px;
+    position: absolute;
+    text-align: left;
+    font-size: 16px;
+}
+
+.popup-summary {
+    margin-top:0px;
+    margin-bottom: 0px;
+}
+
+#popup-name {
+    margin-top: 20px;
+    font-weight: 700;
+}

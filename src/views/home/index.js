@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import './Homepage.css';
-import Item from './Item';
-import Navbar from './Navbar';
+import Item from '../../components/Item';
+import Navbar from '../../components/Navbar';
+import Popup from '../../components/Popup';
 
 class Roll {
     glazingToPrice = {
@@ -77,7 +78,8 @@ class Homepage extends Component {
 
             cart: [],
             totalItem: 0,
-            totalPrice: 0
+            totalPrice: 0,
+            popUpSeen: false
         }
     }
 
@@ -105,9 +107,9 @@ class Homepage extends Component {
         this.setState({ itemData: [ ...newItemData ]})
     }
 
-    
 
     handleAddToCart = (index) => {
+        this.handlePopUp();
         let newCart = this.state.cart;
         this.state.itemData[index].addToList(newCart);
         this.setState(prevState => ({
@@ -117,6 +119,19 @@ class Homepage extends Component {
             totalPrice: this.calcTotalPrice(newCart)
         }))
     }
+
+    handlePopUp = () => {
+        this.setState ({
+            popUpSeen: true,
+        })
+    }
+
+    // useEffect(() => {
+    //     const timer = setTimeout(() => {
+    //     setShowPopUp(false);
+    //   }, 5000);
+    //  return () => clearTimeout(timer);
+    //  }, [showPopUp]);
     
 
     render(){
@@ -130,6 +145,9 @@ class Homepage extends Component {
                     
                     <div id="header-content">
                         <Navbar />
+                        {/*EXAMPLE from: https://medium.com/@daniela.sandoval/creating-a-popup-window-using-js-and-react-4c4bd125da57*/ }
+                        {this.state.popUpSeen ? <Popup 
+                        addedItem={this.state.cart.at(-1)}/> : null}
                         <p className="cart-content">{this.state.totalItem} items</p>
                         <p className="cart-content">Total: ${this.state.totalPrice}</p>
                         <hr className="divider"/>
